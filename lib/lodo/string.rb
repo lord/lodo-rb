@@ -6,6 +6,8 @@ module Lodo
       @device = Core.open_device
       @buffer = Core::Buffer.new
       @buffer_cache = {} # TODO replace with retrieval from C buffer?
+
+      Core.set_gamma 2.2, 2.2, 2.2
       raise "Device failed to open" if @device <= 0
 
       spi_status = Core.spi_init(@device)
@@ -16,7 +18,7 @@ module Lodo
     end
 
     def []= (led_number, color)
-      Core.write_color_to_buffer(@buffer.pointer, led_number, color[:red], color[:green], color[:blue])
+      Core.write_gamma_color_to_buffer(@buffer.pointer, led_number, color[:red], color[:green], color[:blue])
       @buffer_cache[led_number] = color
     end
 

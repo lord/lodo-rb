@@ -28,5 +28,7 @@ module Lodo
     attach_function :close_device, [:int], :void
     attach_function :write_color_to_buffer, [:pointer, :int, :uint8, :uint8, :uint8], :void
     attach_function :send_buffer, [:int, :pointer], :int
+    attach_function :set_gamma, [:double, :double, :double], :void
+    attach_function :write_gamma_color_to_buffer, [:pointer, :int, :uint8, :uint8, :uint8], :void
   end
 end

@@ -4,6 +4,8 @@
  * Copyright 2012 Christopher De Vries
  * This program is distributed under the Artistic License 2.0, a copy of which
  * is included in the file LICENSE.txt
+ *
+ * Some light edits made by Robert Lord
  */
 #include "tclled.h"
 #include <unistd.h>
@@ -97,7 +99,7 @@ void write_frame(tcl_color *p, uint8_t flag, uint8_t red, uint8_t green, uint8_t
 }
 
 void write_color_to_buffer(tcl_buffer *buf, int position, uint8_t red, uint8_t green, uint8_t blue) {
-  write_color(buf->&pixels[position],red, green, blue);
+  write_color(&buf->pixels[position],red, green, blue);
 }
 
 uint8_t make_flag(uint8_t red, uint8_t green, uint8_t blue) {
@@ -153,6 +155,13 @@ void write_gamma_color(tcl_color *p, uint8_t red, uint8_t green, uint8_t blue) {
 
   flag = make_flag(gamma_corrected_red,gamma_corrected_green,gamma_corrected_blue);
   write_frame(p,flag,gamma_corrected_red,gamma_corrected_green,gamma_corrected_blue);
+}
+
+void write_gamma_color_to_buffer(tcl_buffer *buf, int position, uint8_t red, uint8_t green, uint8_t blue) {
+  uint8_t gamma_corrected_red = gamma_table_red[red];
+  uint8_t gamma_corrected_green = gamma_table_green[green];
+  uint8_t gamma_corrected_blue = gamma_table_blue[blue];
+  write_color(&buf->pixels[position],gamma_corrected_red, gamma_corrected_green, gamma_corrected_blue);
 }
 
 int open_device() {

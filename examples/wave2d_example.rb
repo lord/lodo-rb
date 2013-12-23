@@ -9,14 +9,14 @@ board = Lodo::Board.new
 brightness = 0
 going_up = true
 possibilities = [
-  {r: 1, g: 0, b: 0},
-  {r: 0, g: 1, b: 0},
-  {r: 0, g: 0, b: 1},
-  {r: 0, g: 1, b: 1},
-  {r: 1, g: 0, b: 1},
-  {r: 0.5, g: 0, b: 1},
-  {r: 1, g: 1, b: 0},
-  {r: 1, g: 1, b: 1}
+  {r: 0.6, g: 0, b: 0},
+  {r: 0, g: 0.6, b: 0},
+  {r: 0, g: 0, b: 0.6},
+  {r: 0, g: 0.6, b: 0.6},
+  {r: 0.6, g: 0, b: 0.6},
+  {r: 0.3, g: 0, b: 0.6},
+  {r: 0.6, g: 0.6, b: 0},
+  {r: 0.6, g: 0.6, b: 0.6}
 ]
 color = possibilities.sample
 colors = []
