@@ -1,6 +1,6 @@
-require './lodo'
+require './lib/lodo'
 
-lights = LightString.new
+lights = Lodo::String.new
 lights.reset
 
 brightness = 0
@@ -18,7 +18,7 @@ colors = [
 color = colors.sample
 
 loop do
-  (LightString::LED_COUNT - 1).downto(0) do |light_number|
+  (Lodo::String::LED_COUNT - 1).downto(0) do |light_number|
     if light_number == 0
       lights[light_number] = {red: brightness.abs * color[:r], green: brightness.abs * color[:g], blue: brightness.abs * color[:b]}
     else
