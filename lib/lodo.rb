@@ -10,3 +10,4 @@ end
 
 require 'lodo/core'
 require 'lodo/string'
+require 'lodo/board'
