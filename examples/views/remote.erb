@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 20px;
+      }
+      .color {
+        width: 25px;
+        height: 25px;
+        background-color: #fff;
+        border: 2px solid #000;
+        float: left;
+      }
+      #board {
+        cursor: cell;
+      }
+
+      #preview {
+        padding: 5px;
+      }
+
+      .palette-container {
+        padding: 5px;
+        background-color: #ccc;
+        float: left;
+      }
+
+      .hint {
+        color: #aaa;
+        font-size: 0.6em;
+        max-width: 500px;
+        line-height: 1.3;
+      }
+
+      .row:after, .color-selector:after, .palette-container:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+
+      .square {
+        float: left;
+        height: 25px;
+        width: 25px;
+        background-color: #000;
+        border: 1px solid #FFF;
+        border-width: 0px 0px 1px 1px;
+      }
+    </style>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+      "use strict";
+
+      function updatePreview() {
+        var red = $("#red").val();
+        var green = $("#green").val();
+        var blue = $("#blue").val();
+        $("#preview").css("background-color", "rgb(" + red + "," + green + "," + blue + ")");
+      }
+
+      function updatePalette(palette) {
+        var red = $(palette).data("r");
+        var green = $(palette).data("g");
+        var blue = $(palette).data("b");
+        palette.css("background-color", "rgb(" + red + "," + green + "," + blue + ")");
+      }
+
+      $(function() {
+        document.oncontextmenu = function() {return false;};
+
+        var board_html = "";
+        var rows = 9;
+        var cols = 9;
+        for(var row=0; row<rows; row++) {
+          board_html += "<div class='row'>";
+          for(var col=0; col<cols; col++) {
+            board_html += "<div class='square' data-row='" + row + "' data-col='" + col + "'></div>";
+          }
+          board_html += "</div>";
+        }
+
+        $('.palette').each(function() {
+          updatePalette($(this));
+        });
+
+        $("#board").append(board_html);
+
+        $(".color-slider").on("change", updatePreview);
+
+        $(".palette").on("mousedown", function(e) {
+          if (e.button == 2) {
+            $(this).data( "r", $("#red").val() );
+            $(this).data( "g", $("#green").val() );
+            $(this).data( "b", $("#blue").val() );
+            updatePalette($(this));
+          } else {
+            $("#red").val( $(this).data("r") );
+            $("#green").val( $(this).data("g") );
+            $("#blue").val( $(this).data("b") );
+            updatePreview();
+          }
+        });
+
+        $(".square").on("mousedown mouseover", function(e) {
+          if (e.which > 0) {
+            if (e.button == 2) {
+              var red = 0;
+              var green = 0;
+              var blue = 0;
+            } else {
+              var red = $("#red").val();
+              var green = $("#green").val();
+              var blue = $("#blue").val();
+            }
+            var x = $(this).data("col");
+            var y = $(this).data("row");
+            $.ajax({
+              url: '/set',
+              data: {
+                r: red,
+                g: green,
+                b: blue,
+                x: x,
+                y: y
+              }
+            });
+            $(this).css("background-color", "rgb(" + red + "," + green + "," + blue + ")");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="color-selector">
+      <p class="hint">The left color is the current color, the colors on the right are the presets. Left click a palette color to switch to that color, right click to set the palette color to the current color.</p>
+      <div id="preview" class="color"></div>
+      <div class="palette-container">
+        <div class="color palette" data-r="255" data-g="255" data-b="255"></div>
+        <div class="color palette" data-r="0" data-g="0" data-b="0"></div>
+        <div class="color palette" data-r="255" data-g="0" data-b="0"></div>
+        <div class="color palette" data-r="255" data-g="156" data-b="0"></div>
+        <div class="color palette" data-r="255" data-g="255" data-b="0"></div>
+        <div class="color palette" data-r="0" data-g="255" data-b="0"></div>
+        <div class="color palette" data-r="0" data-g="0" data-b="255"></div>
+        <div class="color palette" data-r="255" data-g="0" data-b="255"></div>
+        <div class="color palette" data-r="255" data-g="255" data-b="255"></div>
+        <div class="color palette" data-r="255" data-g="255" data-b="255"></div>
+        <div class="color palette" data-r="255" data-g="255" data-b="255"></div>
+        <div class="color palette" data-r="255" data-g="255" data-b="255"></div>
+      </div>
+    </div>
+    <p><input type="range" class="color-slider" id="red" min="0" max="255" step="1" value="255"> R</p>
+    <p><input type="range" class="color-slider" id="green" min="0" max="255" step="1" value="255"> G</p>
+    <p><input type="range" class="color-slider" id="blue" min="0" max="255" step="1" value="255"> B</p>
+    <div id="board">
+    </div>
+    <p class="hint">Left click to write current color, right click to write a black pixel.</p>
+  </body>
+</html>
