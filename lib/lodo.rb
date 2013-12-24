@@ -10,10 +10,7 @@ end
 
 USE_SIMULATOR = false unless defined? USE_SIMULATOR
 
-# todo remove
-USE_SIMULATOR = true
-
-if USE_SIMULATOR
+if ARGV.include? "-s" || USE_SIMULATOR
   require 'lodo/core_simulator'
   Lodo::Core = Lodo::CoreSimulator
 else
