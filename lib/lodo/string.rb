@@ -3,23 +3,22 @@ module Lodo
     LED_COUNT = 100
 
     def initialize
-      @core = Core
-      @device = @core.open_device
-      @buffer = @core::Buffer.new
+      @device = Core.open_device
+      @buffer = Core::Buffer.new
       @buffer_cache = {} # TODO replace with retrieval from C buffer?
 
-      @core.set_gamma 2.2, 2.2, 2.2
+      Core.set_gamma 2.2, 2.2, 2.2
       raise "Device failed to open" if @device <= 0
 
-      spi_status = @core.spi_init(@device)
+      spi_status = Core.spi_init(@device)
       raise "SPI failed to start" if spi_status != 0
 
-      tcl_status = @core.tcl_init(@buffer.pointer, LED_COUNT)
+      tcl_status = Core.tcl_init(@buffer.pointer, LED_COUNT)
       raise "TCL failed to start" if tcl_status != 0
     end
 
     def []= (led_number, color)
-      @core.write_gamma_color_to_buffer(@buffer.pointer, led_number, color[:red], color[:green], color[:blue])
+      Core.write_gamma_color_to_buffer(@buffer.pointer, led_number, color[:red], color[:green], color[:blue])
       @buffer_cache[led_number] = color
     end
 
@@ -28,7 +27,7 @@ module Lodo
     end
 
     def save
-      @core.send_buffer(@device, @buffer.pointer)
+      Core.send_buffer(@device, @buffer.pointer)
     end
 
     def each
