@@ -8,3 +8,5 @@ task :setup_spi do
   `echo -6 > /sys/devices/bone_capemgr.8/slots`
   `echo BB-SPI1-01 > /sys/devices/bone_capemgr.8/slots`
 end
+
+task :setup => [:build_ext, :setup_spi]
