@@ -19,6 +19,7 @@ module Lodo
 
     private
     def translate_to_linear(x,y)
+      # even rows go up, odd rows go down
       if x % 2 == 0
         (8 - x) * 9 + (8 - y) + 16
       else
