@@ -32,7 +32,7 @@ loop do
 
   ROW_COUNT.times do |y|
     COL_COUNT.times do |x|
-      board.set(x, y, colors[x + y])
+      board.draw_pixel(x, y, colors[x + y])
     end
   end
 

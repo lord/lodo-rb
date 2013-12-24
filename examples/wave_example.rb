@@ -26,7 +26,7 @@ loop do
     end
   end
 
-  lights.push
+  lights.save
 
   if going_up
     brightness += 10

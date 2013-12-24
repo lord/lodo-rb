@@ -5,12 +5,12 @@ module Lodo
       @string.reset
     end
 
-    def set(x,y,color)
+    def draw_pixel(x,y,color)
       @string[translate_to_linear(x,y)] = color
     end
 
     def save
-      @string.push
+      @string.save
     end
 
     def reset

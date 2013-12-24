@@ -14,7 +14,7 @@ color = {
 
 loop do
   board.reset
-  board.set(x, y, color)
+  board.draw_pixel(x, y, color)
   board.save
 
   x += 1

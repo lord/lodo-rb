@@ -26,7 +26,7 @@ module Lodo
       @buffer_cache[led_number]
     end
 
-    def push
+    def save
       Core.send_buffer(@device, @buffer.pointer)
     end
 
@@ -41,7 +41,7 @@ module Lodo
       self.each do |light_number|
         {red: 0, green: 0, blue: 0}
       end
-      push
+      save
     end
   end
 end
