@@ -17,11 +17,6 @@ module Lodo
              :pixels, :pointer
     end
 
-    # int leds; /* number of LEDS */
-    # size_t size; /* size of buffer */
-    # tcl_color *buffer; /* pointer to buffer memory */
-    # tcl_color *pixels; /* pointer to start of pixels */
-
     attach_function :spi_init, [:int], :int
     attach_function :tcl_init, [:pointer, :int], :int
     attach_function :open_device, [], :int

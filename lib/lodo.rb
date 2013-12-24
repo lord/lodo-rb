@@ -8,6 +8,17 @@ $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 module Lodo
 end
 
-require 'lodo/core'
+USE_SIMULATOR = false unless defined? USE_SIMULATOR
+
+# todo remove
+USE_SIMULATOR = true
+
+if USE_SIMULATOR
+  require 'lodo/core_simulator'
+  Lodo::Core = Lodo::CoreSimulator
+else
+  require 'lodo/core'
+end
+
 require 'lodo/string'
 require 'lodo/board'
