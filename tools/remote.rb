@@ -3,6 +3,8 @@ require './lib/lodo'
 
 board = Lodo::Board.new
 
+set :views, Proc.new { File.join(root, "..", "templates") }
+
 set :bind, '0.0.0.0'
 
 get '/' do
