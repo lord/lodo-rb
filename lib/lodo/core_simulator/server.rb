@@ -3,10 +3,13 @@ require 'json'
 
 module Lodo
   class CoreSimulator::Server < Sinatra::Base
-    set :views, Proc.new { File.join(root, "..", "..", "..", "templates") }
+    configure do
+      set :views, Proc.new { File.join(root, "..", "..", "..", "templates") }
+      set :bind, '0.0.0.0'
+      set :port, 1337
+    end
 
-    set :bind, '0.0.0.0'
-    set :port, 1337
+    before { env['rack.logger'] = './app.error.log'  }
 
     get '/' do
       erb :simulator
