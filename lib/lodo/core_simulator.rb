@@ -79,5 +79,3 @@ module Lodo
 end
 
 require 'core_simulator/server'
-
-Lodo::CoreSimulator.start_server
