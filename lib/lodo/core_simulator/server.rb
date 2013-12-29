@@ -18,5 +18,15 @@ module Lodo
     get '/lights' do
       Lodo::CoreSimulator.lights.to_json
     end
+
+    get '/sensor' do
+      if params[:val].to_i == 1
+        sensor_value = true
+      else
+        sensor_value = false
+      end
+
+      Lodo::CoreSimulator.set_sensors(params[:x].to_i, params[:y].to_i, sensor_value)
+    end
   end
 end

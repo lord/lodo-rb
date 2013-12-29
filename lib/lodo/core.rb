@@ -25,5 +25,10 @@ module Lodo
     attach_function :send_buffer, [:int, :pointer], :int
     attach_function :set_gamma, [:double, :double, :double], :void
     attach_function :write_gamma_color_to_buffer, [:pointer, :int, :uint8, :uint8, :uint8], :void
+
+    # Placeholder for sensors
+    def self.pressed?(x, y)
+      false
+    end
   end
 end

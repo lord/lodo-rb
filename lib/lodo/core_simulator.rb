@@ -7,6 +7,9 @@ module Lodo
     LIGHT_ROWS = 9
     LIGHT_COLS = 9
 
+    SENSOR_ROWS = 3
+    SENSOR_COLS = 3
+
     # SIMULATED FUNCTIONS
     ##########################
 
@@ -18,6 +21,10 @@ module Lodo
     def self.tcl_init(pointer, max_leds)
       @@buffer = []
       @@max_leds = max_leds
+      @@sensors = []
+      SENSOR_COLS.times do |x|
+        @@sensors[x] = Array.new(SENSOR_ROWS, false)
+      end
       0
     end
 
@@ -47,6 +54,10 @@ module Lodo
       0
     end
 
+    def self.pressed?(x, y)
+      @@sensors[x][y]
+    end
+
     class self::Buffer
       def pointer
         1337
@@ -65,6 +76,10 @@ module Lodo
         trap("INT") {puts "Exiting..."; exit}
         puts "Trap registered"
       }
+    end
+
+    def self.set_sensors(x, y, val)
+      @@sensors[x][y] = !!val
     end
 
     def self.lights

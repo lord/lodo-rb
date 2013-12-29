@@ -17,6 +17,10 @@ module Lodo
       @string.reset
     end
 
+    def pressed?(*args)
+      Core.pressed?(*args)
+    end
+
     private
     def translate_to_linear(x,y)
       # even rows go up, odd rows go down

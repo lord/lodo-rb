@@ -21,6 +21,10 @@
         border-width: 0px 0px 1px 1px;
       }
 
+      .square.active {
+        background-color: #F00;
+      }
+
       .hint {
         color: #aaa;
         font-size: 0.6em;
@@ -38,7 +42,7 @@
           url: '/lights',
           dataType: 'json',
           success: function(data) {
-            $(".square").each(function() {
+            $("#board .square").each(function() {
               var red = data[$(this).data('id')]['r']
               var green = data[$(this).data('id')]['g']
               var blue = data[$(this).data('id')]['b']
@@ -48,8 +52,28 @@
           }
         });
       }
+
       $(function() {
         updateBoard();
+        $('#sensor-board .square').click(function() {
+          // swap activated status
+          if ($(this).data('activated') == '1') {
+            $(this).data('activated', '0').removeClass('active');
+          }
+          else {
+            $(this).data('activated', '1').addClass('active');
+          }
+
+          // send current activated status to server
+          $.ajax({
+            url: '/sensor',
+            data: {
+              'x': $(this).data('x'),
+              'y': $(this).data('y'),
+              'val': $(this).data('activated'),
+            }
+          });
+        });
       });
     </script>
   </head>
@@ -70,5 +94,14 @@
       <% end %>
     </div>
     <p class="hint">The board above represents the current state of the simulated board.</p>
+    <h3>Sensors</h3>
+    <div id="sensor-board">
+      <% 3.times do |y| %>
+        <div class="row">
+          <% 3.times do |x| %>
+            <div class="square" data-x="<%= x %>" data-y="<%= y %>" data-activated="0"></div>
+          <% end %>
+        </div>
+      <% end %>
   </body>
 </html>
