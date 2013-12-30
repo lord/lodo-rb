@@ -6,6 +6,10 @@ dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 
 module Lodo
+  LIGHT_ROWS = 9
+  LIGHT_COLS = 9
+  SENSOR_ROWS = 3
+  SENSOR_COLS = 3
 end
 
 LODO_MODE = :hardware unless defined? LODO_MODE

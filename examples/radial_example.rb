@@ -1,7 +1,5 @@
 require './lib/lodo'
 
-ROW_COUNT = 9
-COL_COUNT = 9
 COLOR_COUNT = 18
 
 board = Lodo::Board.new
@@ -14,17 +12,17 @@ border_brightness_speed = 0.2
 
 distance_table = []
 
-COL_COUNT.times do |col|
+Lodo::LIGHT_COLS.times do |col|
   distance_table[col] = []
-  ROW_COUNT.times do |row|
+  Lodo::LIGHT_ROWS.times do |row|
     distance_table[col][row] = Math.sqrt(((row - 4) ** 2)+((col - 4)) ** 2)
   end
 end
 
 
 loop do
-  COL_COUNT.times do |col|
-    ROW_COUNT.times do |row|
+  Lodo::LIGHT_COLS.times do |col|
+    Lodo::LIGHT_ROWS.times do |row|
       distance = distance_table[col][row]
       brightness = Math.sin((distance + offset) * spread) * 100
       # puts "(#{row - 4}, #{col-4}, #{distance})"
@@ -41,12 +39,12 @@ loop do
   end
 
   [0,8].each do |col|
-    ROW_COUNT.times do |row|
+    Lodo::LIGHT_ROWS.times do |row|
       board.draw_pixel(col, row, {red: border_brightness, blue: 0, green: 0})
     end
   end
 
-  COL_COUNT.times do |col|
+  Lodo::LIGHT_COLS.times do |col|
     [0,8].each do |row|
       board.draw_pixel(col, row, {red: border_brightness.to_i, blue: 0, green: 0})
     end

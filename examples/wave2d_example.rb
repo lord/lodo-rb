@@ -1,7 +1,5 @@
 require './lib/lodo'
 
-ROW_COUNT = 9
-COL_COUNT = 9
 COLOR_COUNT = 18
 
 board = Lodo::Board.new
@@ -30,8 +28,8 @@ loop do
   # limit colors size
   colors = colors[0..COLOR_COUNT]
 
-  ROW_COUNT.times do |y|
-    COL_COUNT.times do |x|
+  Lodo::LIGHT_ROWS.times do |y|
+    Lodo::LIGHT_COLS.times do |x|
       board.draw_pixel(x, y, colors[x + y])
     end
   end

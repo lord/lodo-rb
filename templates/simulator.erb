@@ -79,9 +79,9 @@
   </head>
   <body>
     <div id="board">
-      <% 9.times do |y| %>
+      <% Lodo::LIGHT_ROWS.times do |y| %>
         <div class="row">
-          <% 9.times do |x| %>
+          <% Lodo::LIGHT_COLS.times do |x| %>
             <div class="square" data-id="<%=
               if x % 2 == 0
                 (8 - x) * 9 + (8 - y) + 16
@@ -96,9 +96,9 @@
     <p class="hint">The board above represents the current state of the simulated board.</p>
     <h3>Sensors</h3>
     <div id="sensor-board">
-      <% 3.times do |y| %>
+      <% Lodo::SENSOR_ROWS.times do |y| %>
         <div class="row">
-          <% 3.times do |x| %>
+          <% Lodo::SENSOR_COLS.times do |x| %>
             <div class="square" data-x="<%= x %>" data-y="<%= y %>" data-activated="0"></div>
           <% end %>
         </div>

@@ -71,8 +71,8 @@
         document.oncontextmenu = function() {return false;};
 
         var board_html = "";
-        var rows = 9;
-        var cols = 9;
+        var rows = <%= Lodo::LIGHT_ROWS %>;
+        var cols = <%= Lodo::LIGHT_COLS %>;
         for(var row=0; row<rows; row++) {
           board_html += "<div class='row'>";
           for(var col=0; col<cols; col++) {

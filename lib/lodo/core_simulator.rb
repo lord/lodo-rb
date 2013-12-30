@@ -4,12 +4,6 @@ $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 module Lodo
   module CoreSimulator
 
-    LIGHT_ROWS = 9
-    LIGHT_COLS = 9
-
-    SENSOR_ROWS = 3
-    SENSOR_COLS = 3
-
     # SIMULATED FUNCTIONS
     ##########################
 
@@ -22,8 +16,8 @@ module Lodo
       @@buffer = []
       @@max_leds = max_leds
       @@sensors = []
-      SENSOR_COLS.times do |x|
-        @@sensors[x] = Array.new(SENSOR_ROWS, false)
+      Lodo::SENSOR_COLS.times do |x|
+        @@sensors[x] = Array.new(Lodo::SENSOR_ROWS, false)
       end
       0
     end
