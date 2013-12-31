@@ -62,7 +62,7 @@ module Lodo
     ##################################
 
     def self.start_server
-      server_thread = Thread.new { Lodo::CoreSimulator::Server.run! }
+      Thread.new { Lodo::CoreSimulator::Server.run! }
       Thread.new {
         until Lodo::CoreSimulator::Server.running?
           sleep 1
