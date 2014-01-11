@@ -171,3 +171,43 @@ int open_device() {
 void close_device(int fd) {
   close(fd);
 }
+
+const char * check_pressed(int sensor_number) {
+  char* bit1 = (sensor_number & 1) > 0 ? "1" : "0";
+  char* bit2 = (sensor_number & 2) > 0 ? "1" : "0";
+  char* bit3 = (sensor_number & 4) > 0 ? "1" : "0";
+  char* bit4 = (sensor_number & 8) > 0 ? "1" : "0";
+
+  int selector1 = open("/sys/class/gpio/gpio23/value", O_WRONLY | O_TRUNC);
+  int selector2 = open("/sys/class/gpio/gpio47/value", O_WRONLY | O_TRUNC);
+  int selector3 = open("/sys/class/gpio/gpio27/value", O_WRONLY | O_TRUNC);
+  int selector4 = open("/sys/class/gpio/gpio22/value", O_WRONLY | O_TRUNC);
+
+  if (write(selector1, bit1, 1) < 0) {
+    return "poo";
+  }
+
+  if (write(selector2, bit2, 1) < 0) {
+    return "poo";
+  }
+
+  if (write(selector3, bit3, 1) < 0) {
+    return "poo";
+  }
+
+  if (write(selector3, bit3, 1) < 0) {
+    return "poo";
+  }
+
+  int sensor_file = open("/sys/devices/ocp.2/helper.11/AIN2", O_RDONLY);
+  static char sensor_returned_value[128];
+
+  read(sensor_file, sensor_returned_value, 5);
+
+  close(selector1);
+  close(selector2);
+  close(selector3);
+  close(selector4);
+
+  return sensor_returned_value;
+}

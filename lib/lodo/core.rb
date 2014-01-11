@@ -25,10 +25,22 @@ module Lodo
     attach_function :send_buffer, [:int, :pointer], :int
     attach_function :set_gamma, [:double, :double, :double], :void
     attach_function :write_gamma_color_to_buffer, [:pointer, :int, :uint8, :uint8, :uint8], :void
+    attach_function :check_pressed, [:int], :string
 
     # Placeholder for sensors
-    def self.pressed?(x, y)
-      false
+    def self.refresh_sensor_data(sensor_count)
+      boards = Array.new(3, [])
+
+      sensor_count.times do |sensor_number|
+        `echo #{(sensor_number & 1) > 0 ? 1 : 0} > /sys/class/gpio/gpio23/value`
+        `echo #{(sensor_number & 2) > 0 ? 1 : 0} > /sys/class/gpio/gpio47/value`
+        `echo #{(sensor_number & 4) > 0 ? 1 : 0} > /sys/class/gpio/gpio27/value`
+        `echo #{(sensor_number & 8) > 0 ? 1 : 0} > /sys/class/gpio/gpio22/value`
+
+        sensor_blocks[0][sensor_number] = `cat /sys/devices/ocp.2/helper.11/AIN0`.chomp.to_i
+        sensor_blocks[1][sensor_number] = `cat /sys/devices/ocp.2/helper.11/AIN1`.chomp.to_i
+        sensor_blocks[2][sensor_number] = `cat /sys/devices/ocp.2/helper.11/AIN2`.chomp.to_i
+      end
     end
   end
 end

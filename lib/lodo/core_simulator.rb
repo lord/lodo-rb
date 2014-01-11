@@ -48,7 +48,7 @@ module Lodo
       0
     end
 
-    def self.pressed?(x, y)
+    def self.check_pressed(x, y)
       @@sensors[x][y]
     end
 

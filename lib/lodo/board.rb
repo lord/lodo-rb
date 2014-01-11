@@ -18,7 +18,7 @@ module Lodo
     end
 
     def pressed?(*args)
-      Core.pressed?(*args)
+      Core.check_pressed(*args)
     end
 
     private

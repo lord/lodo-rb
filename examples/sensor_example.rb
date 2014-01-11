@@ -9,18 +9,27 @@ color = {
 }
 
 
-loop do
-  board.reset
+# loop do
+#   board.reset
 
-  3.times do |x|
-    3.times do |y|
-      if board.pressed? x, y
-        board.draw_pixel(x, y, color)
-      end
-    end
+#   3.times do |x|
+#     3.times do |y|
+#       if board.pressed? x, y
+#         board.draw_pixel(x, y, color)
+#       end
+#     end
+#   end
+
+#   board.save
+
+#   sleep 0.07
+# end
+
+loop do
+  16.times do |num|
+    print Lodo::Core.check_pressed(num).to_i.to_s + " "
   end
 
-  board.save
-
-  sleep 0.07
+  puts "--"
+  sleep 0.1
 end
